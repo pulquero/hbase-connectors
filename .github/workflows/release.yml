@@ -1,0 +1,28 @@
+name: HBase Spark connector release
+
+on:
+  push:
+    tags: [ rel/* ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Java 8
+      uses: actions/setup-java@v2
+      with:
+        distribution: temurin
+        java-version: 8
+
+    - name: Build
+      run: |
+        mvn -DskipTests -Drevision=1.0.0 -Dspark.version=3.5.0 -Dscala.version=2.12.18 -Dhadoop-three.version=3.3.6 -Dscala.binary.version=2.12 -Dhbase.version=2.5.5 install
+
+    - name: Release zips
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          hbase-connectors-assembly/target/hbase-connectors-*-bin.tar.gz

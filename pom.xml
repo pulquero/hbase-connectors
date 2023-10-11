@@ -138,15 +138,15 @@
     <buildnumber.maven.version>1.4</buildnumber.maven.version>
 
     <maven.min.version>3.5.0</maven.min.version>
-    <hbase.version>2.4.9</hbase.version>
+    <hbase.version>2.5.5</hbase.version>
     <exec.maven.version>1.6.0</exec.maven.version>
     <audience-annotations.version>0.5.0</audience-annotations.version>
     <junit.version>4.12</junit.version>
     <hbase-thirdparty.version>4.0.1</hbase-thirdparty.version>
     <hadoop-two.version>2.8.5</hadoop-two.version>
-    <hadoop-three.version>3.2.0</hadoop-three.version>
+    <hadoop-three.version>3.3.6</hadoop-three.version>
     <hadoop.version>${hadoop-three.version}</hadoop.version>
-    <slf4j.version>1.7.25</slf4j.version>
+    <slf4j.version>1.7.36</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
     <checkstyle.version>8.28</checkstyle.version>
     <maven.checkstyle.version>3.1.2</maven.checkstyle.version>
@@ -159,7 +159,7 @@
     <protobuf.plugin.version>0.5.0</protobuf.plugin.version>
     <commons-io.version>2.11.0</commons-io.version>
     <avro.version>1.7.7</avro.version>
-    <commons-lang3.version>3.6</commons-lang3.version>
+    <commons-lang3.version>3.9</commons-lang3.version>
     <!--This property is for hadoops netty. HBase netty
          comes in via hbase-thirdparty hbase-shaded-netty-->
     <netty.hadoop.version>3.10.6.Final</netty.hadoop.version>

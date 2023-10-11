@@ -90,6 +90,11 @@
         </exclusion>
       </exclusions>
     </dependency>
+	<dependency>
+		<groupId>org.scala-lang.modules</groupId>
+		<artifactId>scala-parser-combinators_${scala.binary.version}</artifactId>
+		<version>1.1.2</version>
+	</dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-sql_${scala.binary.version}</artifactId>
@@ -286,6 +291,9 @@
           <value>2.0</value>
         </property>
       </activation>
+      <properties>
+        <scala-maven-plugin.version>3.3.0</scala-maven-plugin.version>
+		  </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.hadoop</groupId>
@@ -357,6 +365,7 @@
       </activation>
       <properties>
         <hadoop.version>${hadoop-three.version}</hadoop.version>
+        <scala-maven-plugin.version>3.4.0</scala-maven-plugin.version>
       </properties>
       <dependencies>
         <dependency>
@@ -451,7 +460,7 @@
           <plugin>
             <groupId>net.alchim31.maven</groupId>
             <artifactId>scala-maven-plugin</artifactId>
-            <version>4.3.0</version>
+            <version>${scala-maven-plugin.version}</version>
             <configuration>
               <charset>${project.build.sourceEncoding}</charset>
               <scalaVersion>${scala.version}</scalaVersion>
