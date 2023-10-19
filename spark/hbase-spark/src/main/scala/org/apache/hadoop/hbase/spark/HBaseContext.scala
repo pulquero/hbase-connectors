@@ -35,7 +35,7 @@ import org.apache.hadoop.hbase.io.hfile.{CacheConfig, HFile, HFileContextBuilder
 import org.apache.hadoop.hbase.mapreduce.{IdentityTableMapper, TableInputFormat, TableMapReduceUtil}
 import org.apache.hadoop.hbase.regionserver.{BloomType, HStoreFile, StoreFileWriter, StoreUtils}
 import org.apache.hadoop.hbase.spark.HBaseRDDFunctions._
-import org.apache.hadoop.hbase.util.{Bytes, ChecksumType}
+import org.apache.hadoop.hbase.util.{BloomFilterUtil, Bytes, ChecksumType}
 import org.apache.hadoop.mapred.JobConf
 import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.security.UserGroupInformation
@@ -898,6 +898,11 @@ class HBaseContext(
       familyHFileWriteOptionsMapInternal.put(new ByteArrayWrapper(family), familyOptions)
     }
 
+    val familyConf = new Configuration(conf)
+    if (BloomType.ROWPREFIX_FIXED_LENGTH.toString() == familyOptions.bloomType) {
+      familyConf.setInt(BloomFilterUtil.PREFIX_LENGTH_KEY, familyOptions.rowPrefixLength);
+    }
+
     val tempConf = new Configuration(conf)
     tempConf.setFloat(HConstants.HFILE_BLOCK_CACHE_SIZE_KEY, 0.0f)
 
@@ -927,7 +932,7 @@ class HBaseContext(
     // to remove the '_' when the file is closed.
     new WriterLength(
       0,
-      new StoreFileWriter.Builder(conf, new CacheConfig(tempConf), new HFileSystem(fs))
+      new StoreFileWriter.Builder(familyConf, new CacheConfig(tempConf), new HFileSystem(fs))
         .withBloomType(BloomType.valueOf(familyOptions.bloomType))
         .withFileContext(hFileContext)
         .withFilePath(new Path(familydir, "_" + UUID.randomUUID.toString.replaceAll("-", "")))

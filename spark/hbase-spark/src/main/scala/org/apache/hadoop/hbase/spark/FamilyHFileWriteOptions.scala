@@ -29,11 +29,13 @@ import org.apache.yetus.audience.InterfaceAudience;
  * @param blockSize         The block size to be used in the HFile
  * @param dataBlockEncoding String to define the data block encoding to be used
  *                          in the HFile
+ * @param rowPrefixLength   The row prefix length if using the row prefix bloom filter
  */
 @InterfaceAudience.Public
 class FamilyHFileWriteOptions(
     val compression: String,
     val bloomType: String,
     val blockSize: Int,
-    val dataBlockEncoding: String)
+    val dataBlockEncoding: String,
+    val rowPrefixLength: Int = 0)
     extends Serializable
